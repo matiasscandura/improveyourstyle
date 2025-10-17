@@ -1,378 +1,939 @@
-import React, { useState } from 'react';
-import { ShoppingCart, Heart, Instagram, Twitter, Facebook, Mail, Phone, MapPin, Leaf, Users, Zap, Award } from 'lucide-react';
-
-const App = () => {
-  const [cartItems, setCartItems] = useState(0);
-
-  const products = [
-    {
-      id: 1,
-      name: 'Camisetas',
-      price: 25,
-      description: 'Diseño exclusivo con logo característico. Confeccionadas en algodón premium 100% para máxima comodidad, con estampado duradero y diseño urbano distintivo.',
-      features: ['Algodón premium 100%', 'Estampado duradero', 'Diseño urbano distintivo'],
-      image: 'https://placehold.co/400x500/f0f0f0/333333?text=Camiseta+IYS+Modelo',
-      stock: '500+ unidades/día'
-    },
-    {
-      id: 2,
-      name: 'Pantalones',
-      price: 55,
-      description: 'Jeans de corte holgado con detalles exclusivos. Confeccionados en Denim de alta resistencia. Incluyen logo bordado en el bolsillo trasero y cadena decorativa incluida.',
-      features: ['Denim de alta resistencia', 'Logo bordado en bolsillo', 'Cadena decorativa incluida'],
-      image: 'https://placehold.co/400x500/e0e0e0/333333?text=Pantalones+IYS+Modelo',
-      stock: '300+ unidades/mes'
-    },
-    {
-      id: 3,
-      name: 'Cinturones',
-      price: 35,
-      description: 'Cinturón de cuero genuino premium con hebilla metálica exclusiva. Diseño elegante y duradero que complementa cualquier outfit. Cuenta con un acabado resistente al desgaste.',
-      features: ['Cuero genuino premium', 'Hebilla metálica exclusiva', 'Acabado resistente al desgaste'],
-      image: 'https://placehold.co/400x500/d0d0d0/333333?text=Cinturón+IYS+Modelo',
-      stock: '200+ unidades/mes'
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Improve Your Style - Tienda Online Internacional</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --red: #dc2626;
+      --gray-900: #111827;
+      --gray-800: #1f2937;
+      --gray-700: #374151;
+      --gray-600: #4b5563;
+      --gray-500: #6b7280;
+      --gray-400: #9ca3af;
+      --gray-300: #d1d5db;
+      --green-900: #064e3b;
+      --green-400: #34d399;
+      --emerald-900: #065f46;
     }
-  ];
 
-  const communityImages = [
-    'https://placehold.co/400x400/2a2a2a/ffffff?text=Cliente+1+IYS',
-    'https://placehold.co/400x400/3a3a3a/ffffff?text=Cliente+2+IYS',
-    'https://placehold.co/400x400/4a4a4a/ffffff?text=Cliente+3+IYS'
-  ];
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
 
-  const addToCart = () => {
-    setCartItems(cartItems + 1);
-  };
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      scroll-behavior: smooth;
+    }
 
-  return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-black border-b border-gray-800">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <img 
-              src="https://placehold.co/50x50/ffffff/000000?text=IYS" 
-              alt="Improve Your Style Logo"
-              className="w-12 h-12"
-            />
-            <h1 className="text-2xl font-bold hidden md:block">Improve Your Style</h1>
-          </div>
-          
-          <nav className="hidden md:flex space-x-8">
-            <a href="#productos" className="hover:text-gray-300 transition-colors">Productos</a>
-            <a href="#sobre-nosotros" className="hover:text-gray-300 transition-colors">Sobre Nosotros</a>
-            <a href="#sostenibilidad" className="hover:text-gray-300 transition-colors">Sostenibilidad</a>
-            <a href="#comunidad" className="hover:text-gray-300 transition-colors">Comunidad</a>
-          </nav>
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
 
-          <div className="flex items-center space-x-4">
-            <button className="p-2 hover:text-gray-300 transition-colors">
-              <Heart size={24} />
-            </button>
-            <button className="p-2 hover:text-gray-300 transition-colors relative">
-              <ShoppingCart size={24} />
-              {cartItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItems}
-                </span>
-              )}
-            </button>
-          </div>
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: var(--black);
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-img {
+      width: 48px;
+      height: 48px;
+      background-color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    nav ul {
+      display: none;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav ul li a:hover {
+      color: var(--gray-300);
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .header-icons button {
+      background: none;
+      border: none;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 1.25rem;
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: var(--red);
+      color: var(--white);
+      font-size: 0.625rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, var(--gray-900), var(--black));
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--black);
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      color: var(--red);
+      display: block;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      color: var(--gray-300);
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background-color: var(--red);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #b91c1c;
+      transform: scale(1.05);
+    }
+
+    /* Brand Values */
+    .brand-values {
+      padding: 4rem 0;
+      background-color: var(--gray-900);
+    }
+
+    .brand-values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .brand-values-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .value-item i {
+      font-size: 2rem;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .value-item h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .value-item p {
+      color: var(--gray-400);
+      font-size: 0.95rem;
+    }
+
+    /* Products */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 4rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .product-card {
+      background-color: var(--gray-900);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover {
+      transform: scale(1.03);
+    }
+
+    .product-image {
+      position: relative;
+      height: 24rem;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-price {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--red);
+      color: var(--white);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-info h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .product-info p {
+      color: var(--gray-300);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .features h4 {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .features ul {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .features li {
+      color: var(--gray-400);
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .features li::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: var(--red);
+      border-radius: 50%;
+      margin-right: 0.75rem;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stock {
+      font-size: 0.875rem;
+      color: var(--gray-500);
+    }
+
+    /* Sustainability */
+    .sustainability {
+      background: linear-gradient(to right, var(--green-900), var(--emerald-900));
+      padding: 5rem 0;
+    }
+
+    .sustainability .section-title {
+      color: var(--white);
+    }
+
+    .sustainability-content {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
+    .sustainability-content p {
+      font-size: 1.25rem;
+      color: var(--gray-200);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .sustainability-box {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .sustainability-box h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .sustainability-box ul {
+      text-align: left;
+      list-style: none;
+    }
+
+    .sustainability-box li {
+      color: var(--gray-200);
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .sustainability-box li::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: var(--green-400);
+      border-radius: 50%;
+      margin-right: 0.75rem;
+    }
+
+    /* Community */
+    .community-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .community-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .community-card {
+      background-color: var(--black);
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    .community-card img {
+      width: 100%;
+      height: 16rem;
+      object-fit: cover;
+    }
+
+    .community-card-content {
+      padding: 1rem;
+    }
+
+    .community-card-content p {
+      color: var(--gray-300);
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+
+    .community-card-content .author {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+    }
+
+    /* About */
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
+    .about-content p {
+      font-size: 1.25rem;
+      color: var(--gray-300);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .logos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .logos-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .logo-item {
+      text-align: center;
+    }
+
+    .logo-item img {
+      width: 6rem;
+      height: 6rem;
+      object-fit: contain;
+      margin: 0 auto 0.5rem;
+      background-color: var(--gray-800);
+      border-radius: 0.5rem;
+    }
+
+    .logo-item .label {
+      font-size: 0.875rem;
+      color: var(--gray-400);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .about-box {
+      text-align: left;
+    }
+
+    .about-box h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .about-box p {
+      color: var(--gray-300);
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--gray-900);
+      border-top: 1px solid var(--gray-800);
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .footer-col h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo img {
+      width: 48px;
+      height: 48px;
+      background-color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    .footer-col p {
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    .contact-info {
+      list-style: none;
+    }
+
+    .contact-info li {
+      display: flex;
+      align-items: center;
+      color: var(--gray-400);
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-info i {
+      margin-right: 0.75rem;
+      width: 1.25rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      color: var(--gray-400);
+      font-size: 1.5rem;
+      transition: color 0.2s;
+    }
+
+    .social-links a:hover {
+      color: var(--white);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gray-800);
+      color: var(--gray-500);
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      nav ul {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-img">IYS</div>
+          <h1 class="hidden md:block">Improve Your Style</h1>
         </div>
-      </header>
+        
+        <nav>
+          <ul>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+            <li><a href="#sostenibilidad">Sostenibilidad</a></li>
+            <li><a href="#comunidad">Comunidad</a></li>
+          </ul>
+        </nav>
 
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 text-center px-4 max-w-4xl">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            EXPRESA TU
-            <span className="block text-red-600">IDENTIDAD</span>
-          </h2>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8">
-            Ropa urbana de calidad con diseño distintivo que permite expresar tu personalidad
-          </p>
-          <button 
-            onClick={() => document.getElementById('productos').scrollIntoView({ behavior: 'smooth' })}
-            className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-colors transform hover:scale-105"
-          >
-            Descubre Nuestra Colección
+        <div class="header-icons">
+          <button><i class="far fa-heart"></i></button>
+          <button>
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
           </button>
         </div>
-      </section>
-
-      {/* Brand Values */}
-      <section className="py-16 bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="flex flex-col items-center">
-              <Award className="w-12 h-12 text-red-600 mb-4" />
-              <h3 className="text-xl font-bold mb-2">Calidad</h3>
-              <p className="text-gray-400">Materiales premium y acabados impecables</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <Zap className="w-12 h-12 text-red-600 mb-4" />
-              <h3 className="text-xl font-bold mb-2">Innovación</h3>
-              <p className="text-gray-400">Diseños que marcan tendencia</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <Leaf className="w-12 h-12 text-red-600 mb-4" />
-              <h3 className="text-xl font-bold mb-2">Sostenibilidad</h3>
-              <p className="text-gray-400">Procesos responsables con el medio ambiente</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <Users className="w-12 h-12 text-red-600 mb-4" />
-              <h3 className="text-xl font-bold mb-2">Comunidad</h3>
-              <p className="text-gray-400">Conectamos con nuestros clientes</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Products Section */}
-      <section id="productos" className="py-20 bg-black">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16">Nuestra Colección</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {products.map((product) => (
-              <div key={product.id} className="bg-gray-900 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300">
-                <div className="relative">
-                  <img 
-                    src={product.image} 
-                    alt={product.name}
-                    className="w-full h-96 object-cover"
-                  />
-                  <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    €{product.price}
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3">{product.name}</h3>
-                  <p className="text-gray-300 mb-4">{product.description}</p>
-                  
-                  <div className="mb-4">
-                    <h4 className="font-semibold mb-2">Características:</h4>
-                    <ul className="space-y-1">
-                      {product.features.map((feature, index) => (
-                        <li key={index} className="text-gray-400 flex items-center">
-                          <span className="w-2 h-2 bg-red-600 rounded-full mr-3"></span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">{product.stock}</span>
-                    <button 
-                      onClick={addToCart}
-                      className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-semibold transition-colors"
-                    >
-                      Añadir al Carrito
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sustainability Section */}
-      <section id="sostenibilidad" className="py-20 bg-gradient-to-r from-green-900 to-emerald-900">
-        <div className="container mx-auto px-4 text-center">
-          <Leaf className="w-16 h-16 text-green-400 mx-auto mb-6" />
-          <h2 className="text-4xl font-bold mb-6">Compromiso con la Sostenibilidad</h2>
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
-            En Improve Your Style, creemos en la moda responsable. Nuestros procesos están diseñados 
-            para minimizar el impacto ambiental, y estamos comprometidos con el lanzamiento de nuestra 
-            línea de productos sostenibles para 2026.
-          </p>
-          <div className="bg-black bg-opacity-30 rounded-xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Nuestros Compromisos:</h3>
-            <ul className="text-left space-y-2">
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
-                Materiales sostenibles y reciclados
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
-                Procesos de producción responsables
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
-                Embalaje ecológico y biodegradable
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
-                Línea sostenible lanzamiento 2026
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Community Section */}
-      <section id="comunidad" className="py-20 bg-gray-900">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16">Nuestra Comunidad</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {communityImages.map((img, index) => (
-              <div key={index} className="bg-black rounded-xl overflow-hidden">
-                <img 
-                  src={img} 
-                  alt={`Comunidad ${index + 1}`}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-4">
-                  <p className="text-gray-300">"Estilo urbano auténtico con calidad premium"</p>
-                  <p className="text-gray-500 mt-2">- Cliente IYS</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* About Us */}
-      <section id="sobre-nosotros" className="py-20 bg-black">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-8">Sobre Improve Your Style</h2>
-            <p className="text-xl text-gray-300 mb-6">
-              Somos una marca emergente de moda urbana que combina diseño exclusivo con calidad superior. 
-              Nuestros productos están pensados para quienes buscan expresar su identidad a través de 
-              prendas únicas y duraderas.
-            </p>
-            
-            {/* Logo Identity Section */}
-            <div className="mt-12 bg-gray-900 rounded-xl p-8">
-              <h3 className="text-2xl font-bold mb-6">Nuestra Identidad Visual</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <img 
-                    src="https://placehold.co/120x120/ffffff/000000?text=LOGO+1" 
-                    alt="Logotipo Principal"
-                    className="w-24 h-24 mx-auto mb-2 rounded-lg"
-                  />
-                  <p className="text-sm text-gray-400">Principal</p>
-                </div>
-                <div className="text-center">
-                  <img 
-                    src="https://placehold.co/100x100/333333/ffffff?text=IYS" 
-                    alt="Logotipo Secundario"
-                    className="w-20 h-20 mx-auto mb-2 rounded-lg"
-                  />
-                  <p className="text-sm text-gray-400">Secundario</p>
-                </div>
-                <div className="text-center">
-                  <img 
-                    src="https://placehold.co/80x80/666666/ffffff?text=I" 
-                    alt="Logotipo Submarca"
-                    className="w-16 h-16 mx-auto mb-2 rounded-lg"
-                  />
-                  <p className="text-sm text-gray-400">Submarca</p>
-                </div>
-                <div className="text-center">
-                  <img 
-                    src="https://placehold.co/100x40/000000/ffffff?text=IYS" 
-                    alt="Logo Simplificado"
-                    className="w-24 h-10 mx-auto mb-2"
-                  />
-                  <p className="text-sm text-gray-400">Simplificado</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-              <div className="text-left">
-                <h3 className="text-2xl font-bold mb-4 text-red-600">Misión</h3>
-                <p className="text-gray-300">
-                  Ofrecer ropa urbana de calidad con diseño distintivo que permita a nuestros clientes 
-                  expresar su personalidad.
-                </p>
-              </div>
-              <div className="text-left">
-                <h3 className="text-2xl font-bold mb-4 text-red-600">Visión</h3>
-                <p className="text-gray-300">
-                  Convertirnos en referente del mercado de moda urbana, reconocidos por nuestra 
-                  innovación y calidad.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 border-t border-gray-800 py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <img 
-                  src="https://placehold.co/50x50/ffffff/000000?text=IYS" 
-                  alt="Improve Your Style Logo"
-                  className="w-12 h-12"
-                />
-                <h3 className="text-xl font-bold">Improve Your Style</h3>
-              </div>
-              <p className="text-gray-400">
-                Ropa urbana de calidad con diseño distintivo que permite expresar tu personalidad.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-bold mb-4">Contacto</h4>
-              <div className="space-y-2 text-gray-400">
-                <div className="flex items-center">
-                  <Mail className="w-4 h-4 mr-2" />
-                  invest@improveyourstyle.com
-                </div>
-                <div className="flex items-center">
-                  <Phone className="w-4 h-4 mr-2" />
-                  +34 900 123 456
-                </div>
-                <div className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  Madrid, España
-                </div>
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-bold mb-4">Enlaces</h4>
-              <div className="space-y-2">
-                <a href="#productos" className="block text-gray-400 hover:text-white transition-colors">Productos</a>
-                <a href="#sobre-nosotros" className="block text-gray-400 hover:text-white transition-colors">Sobre Nosotros</a>
-                <a href="#sostenibilidad" className="block text-gray-400 hover:text-white transition-colors">Sostenibilidad</a>
-                <a href="#comunidad" className="block text-gray-400 hover:text-white transition-colors">Comunidad</a>
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-bold mb-4">Síguenos</h4>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <Instagram size={24} />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <Twitter size={24} />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <Facebook size={24} />
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
-            <p>&copy; 2025 Improve Your Style. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
+      </div>
     </div>
-  );
-};
+  </header>
 
-export default App;
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>EXPRESA TU<br><span>IDENTIDAD</span></h1>
+      <p>Ropa urbana de calidad con diseño distintivo que permite expresar tu personalidad</p>
+      <a href="#productos" class="btn">Descubre Nuestra Colección</a>
+    </div>
+  </section>
+
+  <!-- Brand Values -->
+  <section class="brand-values">
+    <div class="container">
+      <div class="brand-values-grid">
+        <div class="value-item">
+          <i class="fas fa-award"></i>
+          <h3>Calidad</h3>
+          <p>Materiales premium y acabados impecables</p>
+        </div>
+        <div class="value-item">
+          <i class="fas fa-bolt"></i>
+          <h3>Innovación</h3>
+          <p>Diseños que marcan tendencia</p>
+        </div>
+        <div class="value-item">
+          <i class="fas fa-leaf"></i>
+          <h3>Sostenibilidad</h3>
+          <p>Procesos responsables con el medio ambiente</p>
+        </div>
+        <div class="value-item">
+          <i class="fas fa-users"></i>
+          <h3>Comunidad</h3>
+          <p>Conectamos con nuestros clientes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="productos" class="section">
+    <div class="container">
+      <h2 class="section-title">Nuestra Colección</h2>
+      <div class="products-grid">
+        <!-- Camisetas -->
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://placehold.co/400x500/f0f0f0/333333?text=Camiseta+IYS+Modelo" alt="Camiseta Improve Your Style">
+            <div class="product-price">€25</div>
+          </div>
+          <div class="product-info">
+            <h3>Camisetas</h3>
+            <p>Diseño exclusivo con logo característico. Confeccionadas en algodón premium 100% para máxima comodidad, con estampado duradero y diseño urbano distintivo.</p>
+            <div class="features">
+              <h4>Características:</h4>
+              <ul>
+                <li>Algodón premium 100%</li>
+                <li>Estampado duradero</li>
+                <li>Diseño urbano distintivo</li>
+              </ul>
+            </div>
+            <div class="product-footer">
+              <span class="stock">500+ unidades/día</span>
+              <button class="btn">Añadir al Carrito</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pantalones -->
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://placehold.co/400x500/e0e0e0/333333?text=Pantalones+IYS+Modelo" alt="Pantalones Improve Your Style">
+            <div class="product-price">€55</div>
+          </div>
+          <div class="product-info">
+            <h3>Pantalones</h3>
+            <p>Jeans de corte holgado con detalles exclusivos. Confeccionados en Denim de alta resistencia. Incluyen logo bordado en el bolsillo trasero y cadena decorativa incluida.</p>
+            <div class="features">
+              <h4>Características:</h4>
+              <ul>
+                <li>Denim de alta resistencia</li>
+                <li>Logo bordado en bolsillo</li>
+                <li>Cadena decorativa incluida</li>
+              </ul>
+            </div>
+            <div class="product-footer">
+              <span class="stock">300+ unidades/mes</span>
+              <button class="btn">Añadir al Carrito</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cinturones -->
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://placehold.co/400x500/d0d0d0/333333?text=Cinturón+IYS+Modelo" alt="Cinturón Improve Your Style">
+            <div class="product-price">€35</div>
+          </div>
+          <div class="product-info">
+            <h3>Cinturones</h3>
+            <p>Cinturón de cuero genuino premium con hebilla metálica exclusiva. Diseño elegante y duradero que complementa cualquier outfit. Cuenta con un acabado resistente al desgaste.</p>
+            <div class="features">
+              <h4>Características:</h4>
+              <ul>
+                <li>Cuero genuino premium</li>
+                <li>Hebilla metálica exclusiva</li>
+                <li>Acabado resistente al desgaste</li>
+              </ul>
+            </div>
+            <div class="product-footer">
+              <span class="stock">200+ unidades/mes</span>
+              <button class="btn">Añadir al Carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sustainability -->
+  <section id="sostenibilidad" class="sustainability">
+    <div class="container">
+      <h2 class="section-title">Compromiso con la Sostenibilidad</h2>
+      <div class="sustainability-content">
+        <p>En Improve Your Style, creemos en la moda responsable. Nuestros procesos están diseñados para minimizar el impacto ambiental, y estamos comprometidos con el lanzamiento de nuestra línea de productos sostenibles para 2026.</p>
+        <div class="sustainability-box">
+          <h3>Nuestros Compromisos:</h3>
+          <ul>
+            <li>Materiales sostenibles y reciclados</li>
+            <li>Procesos de producción responsables</li>
+            <li>Embalaje ecológico y biodegradable</li>
+            <li>Línea sostenible lanzamiento 2026</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section id="comunidad" class="section" style="background-color: var(--gray-900);">
+    <div class="container">
+      <h2 class="section-title">Nuestra Comunidad</h2>
+      <div class="community-grid">
+        <div class="community-card">
+          <img src="https://placehold.co/400x400/2a2a2a/ffffff?text=Cliente+1+IYS" alt="Comunidad 1">
+          <div class="community-card-content">
+            <p>"Este cinturón combina perfectamente con mi estilo urbano. ¡Calidad premium!"</p>
+            <p class="author">- Cliente IYS</p>
+          </div>
+        </div>
+        <div class="community-card">
+          <img src="https://placehold.co/400x400/3a3a3a/ffffff?text=Cliente+2+IYS" alt="Comunidad 2">
+          <div class="community-card-content">
+            <p>"Las camisetas tienen un diseño único que realmente expresa mi personalidad"</p>
+            <p class="author">- Cliente IYS</p>
+          </div>
+        </div>
+        <div class="community-card">
+          <img src="https://placehold.co/400x400/4a4a4a/ffffff?text=Cliente+3+IYS" alt="Comunidad 3">
+          <div class="community-card-content">
+            <p>"Estilo urbano auténtico con calidad premium"</p>
+            <p class="author">- Cliente IYS</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section id="sobre-nosotros" class="section">
+    <div class="container">
+      <div class="about-content">
+        <h2 class="section-title">Sobre Improve Your Style</h2>
+        <p>Somos una marca emergente de moda urbana que combina diseño exclusivo con calidad superior. Nuestros productos están pensados para quienes buscan expresar su identidad a través de prendas únicas y duraderas.</p>
+        
+        <div class="logos-grid">
+          <div class="logo-item">
+            <img src="https://placehold.co/120x120/ffffff/000000?text=LOGO+1" alt="Logotipo Principal">
+            <div class="label">Principal</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://placehold.co/100x100/333333/ffffff?text=IYS" alt="Logotipo Secundario">
+            <div class="label">Secundario</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://placehold.co/80x80/666666/ffffff?text=I" alt="Logotipo Submarca">
+            <div class="label">Submarca</div>
+          </div>
+          <div class="logo-item">
+            <img src="https://placehold.co/100x40/000000/ffffff?text=IYS" alt="Logo Simplificado">
+            <div class="label">Simplificado</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-box">
+          <h3>Misión</h3>
+          <p>Ofrecer ropa urbana de calidad con diseño distintivo que permita a nuestros clientes expresar su personalidad.</p>
+        </div>
+        <div class="about-box">
+          <h3>Visión</h3>
+          <p>Convertirnos en referente del mercado de moda urbana, reconocidos por nuestra innovación y calidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <div class="logo-img">IYS</div>
+            <h4>Improve Your Style</h4>
+          </div>
+          <p>Ropa urbana de calidad con diseño distintivo que permite expresar tu personalidad.</p>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul class="contact-info">
+            <li><i class="fas fa-envelope"></i> invest@improveyourstyle.com</li>
+            <li><i class="fas fa-phone"></i> +34 900 123 456</li>
+            <li><i class="fas fa-map-marker-alt"></i> Madrid, España</li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Enlaces</h4>
+          <ul class="footer-links">
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+            <li><a href="#sostenibilidad">Sostenibilidad</a></li>
+            <li><a href="#comunidad">Comunidad</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Síguenos</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 Improve Your Style. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Cart functionality
+      const cartButtons = document.querySelectorAll('.btn');
+      const cartCount = document.querySelector('.cart-count');
+      let count = 0;
+
+      cartButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          if (e.target.classList.contains('btn')) {
+            count++;
+            cartCount.textContent = count;
+            cartCount.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+```
